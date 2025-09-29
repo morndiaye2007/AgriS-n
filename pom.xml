@@ -11,7 +11,7 @@
 	<groupId>com.webgram</groupId>
 	<artifactId>tage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Stage</name>
+	<name>dgpsn</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
