@@ -1,6 +1,6 @@
 package com.agri.sen.repository;
 
-import com.webgram.stage.entity.AgentEntity;
+import com.agri.sen.entity.ProduitEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AgentRepository extends JpaRepository<AgentEntity, Long>, QuerydslPredicateExecutor<AgentEntity> {
+public interface ProduitRepository extends JpaRepository<ProduitEntity, Long>, QuerydslPredicateExecutor<ProduitEntity> {
 
-    @Query("SELECT e.matricule FROM AgentEntity e ORDER BY e.matricule DESC LIMIT 1")
-    Optional<String> findLastMatricule();
+    @Query("SELECT e.nom FROM ProduitEntity e ORDER BY e.nom DESC LIMIT 1")
+    Optional<String> findLastNom();
 
-    boolean existsByMatricule(String matricule);
+    boolean existsByNom(String nom);
 }

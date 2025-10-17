@@ -1,16 +1,10 @@
-package com.webgram.stage.entity.enums;
+package com.agri.sen.entity.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.text.MessageFormat;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import static java.util.Arrays.stream;
 
 public enum StatutType {
     TRAITEMENT_ENCOUR("En cours..."),

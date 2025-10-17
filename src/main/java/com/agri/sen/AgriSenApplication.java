@@ -1,16 +1,16 @@
-package com.webgram.dgpsn;
+package com.agri.sen;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = {"com.webgram.dgpsn"})
+@SpringBootApplication(scanBasePackages = {"com.agri.sen"})
 @EnableScheduling
-public class WebgramDgpsnApplication {
+public class AgriSenApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebgramDgpsnApplication.class, args);
+        SpringApplication.run(AgriSenApplication.class, args);
     }
 
 	/*@Bean
@@ -24,7 +24,7 @@ public class WebgramDgpsnApplication {
 					.poste("Développeur Java")
 					.departement("Informatique")
 					.contratstatut(ContratStatut.ACTIF)
-<<<<<<< HEAD
+
 					.build());
 
 	};*/

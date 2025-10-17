@@ -1,4 +1,4 @@
-package com.webgram.dgpsn;
+package com.agri.sen;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

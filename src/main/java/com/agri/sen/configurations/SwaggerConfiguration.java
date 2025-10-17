@@ -1,4 +1,4 @@
-package com.webgram.stage.configurations;
+package com.agri.sen.configurations;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

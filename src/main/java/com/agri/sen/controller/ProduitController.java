@@ -1,9 +1,9 @@
 package com.agri.sen.controller;
 
 import com.agri.sen.entity.enums.StatutType;
-import com.agri.sen.model.AgentDTO;
+import com.agri.sen.model.ProduitDTO;
 import com.agri.sen.model.Response;
-import com.agri.sen.services.AgentService;
+import com.agri.sen.services.ProduitService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,19 +26,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 
-public class AgentController {
+public class ProduitController {
 
-    private final AgentService agentService;
+    private final ProduitService agentService;
 
     @Operation(summary = "Create agent", description = "this endpoint takes input agent and saves it")
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Response<Object> createAgent(@RequestBody AgentDTO agentDTO) {
+    public Response<Object> createProduit(@RequestBody ProduitDTO produitDTO) {
         try {
-            var dto = agentService.createAgent(agentDTO);
-            dto.setStatutType(StatutType.TRAITEMENT_ENCOUR);
-            return Response.ok().setPayload(dto).setMessage("Agent créé");
+            var dto = agentService.createProduit(produitDTO);
+            return Response.ok().setPayload(dto).setMessage("Produit créé");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
@@ -46,10 +45,10 @@ public class AgentController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> updateAgent(@Parameter(name = "id", description = "the agent id to updated") @PathVariable("id") Long id, @RequestBody AgentDTO agentDTO) {
-        agentDTO.setId(id);
+    public Response<Object> updateProduit(@Parameter(name = "id", description = "the agent id to updated") @PathVariable("id") Long id, @RequestBody ProduitDTO produitDTO) {
+        produitDTO.setId(id);
         try {
-            var dto = agentService.updateAgent(agentDTO);
+            var dto = agentService.updateProduit(produitDTO);
             return Response.ok().setPayload(dto).setMessage("agent modifié");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
@@ -61,9 +60,9 @@ public class AgentController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> getAgent(@Parameter(name = "id", description = "the type agent id to valid") @PathVariable Long id) {
+    public Response<Object> getProduit(@Parameter(name = "id", description = "the type agent id to valid") @PathVariable Long id) {
         try {
-            var dto = agentService.getAgent(id);
+            var dto = agentService.getProduit(id);
             return Response.ok().setPayload(dto).setMessage("agent trouvé");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
@@ -74,8 +73,8 @@ public class AgentController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> getAllAgents(@RequestParam Map<String, String> searchParams, Pageable pageable) {
-        var page = agentService.getAllAgents(searchParams, pageable);
+    public Response<Object> getAllProduits(@RequestParam Map<String, String> searchParams, Pageable pageable) {
+        var page = agentService.getAllProduits(searchParams, pageable);
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
@@ -85,76 +84,12 @@ public class AgentController {
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAgent(@PathVariable("id") Long id) {
+    public void deleteProduit(@PathVariable("id") Long id) {
         try {
-            agentService.deleteAgent(id);
+            agentService.deleteProduit(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Operation(summary = "Import agents from list", description = "This endpoint imports a list of agents")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "400", description = "Invalid input"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
-
-
-    @PostMapping("/import")
-    @ResponseStatus(HttpStatus.OK)
-    public Response<Object> importAgents(@RequestBody @Valid List<AgentDTO> agents) {
-        if (agents == null || agents.isEmpty()) {
-            return Response.badRequest().setMessage("La liste des agents est vide ou nulle");
-        }
-        try {
-            List<AgentDTO> importedAgents = agentService.importAgents(agents);
-            return Response.ok()
-                    .setPayload(importedAgents)
-                    .setMessage("Agents importés avec succès");
-        } catch (Exception ex) {
-            String detailedMessage = ex.getMessage() != null ? ex.getMessage() : "Erreur lors de la désérialisation ou validation des données";
-            if (ex instanceof org.springframework.validation.BindException) {
-                detailedMessage = ((org.springframework.validation.BindException) ex).getBindingResult()
-                        .getFieldErrors()
-                        .stream()
-                        .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                        .collect(Collectors.joining("; "));
-            }
-            return Response.badRequest().setMessage("Erreur lors de l'importation: " + detailedMessage);
-        }
-    }
-    @GetMapping("/export")
-    @ResponseStatus(HttpStatus.OK)
-    public void exportAgents(HttpServletResponse response) {
-        try {
-            response.setContentType("text/csv; charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment; filename=\"agents.csv\"");
-            agentService.exportAgent(response.getWriter());
-        } catch (IOException e) {
-            throw new RuntimeException("Erreur lors de l'exportation du fichier CSV: " + e.getMessage());
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.setContentType("application/json");
-            try {
-                response.getWriter().write("{\"message\": \"" + e.getMessage() + "\"}");
-            } catch (IOException ex) {
-                throw new RuntimeException("Erreur lors de l'envoi de la réponse d'erreur");
-            }
-        }
-    }
-
-    @PutMapping("/{id}/statut")
-    @Operation(summary = "Mettre à jour le statut")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Statut mis à jour avec succès"),
-            @ApiResponse(responseCode = "400", description = "Requête invalide"),
-            @ApiResponse(responseCode = "404", description = "non trouvé")
-    })
-    public ResponseEntity<AgentDTO> updateStatut(
-            @PathVariable Long id,
-            @RequestParam StatutType statutType) {
-        return ResponseEntity.ok(agentService.updateStatut(id, statutType));
     }
 
 }

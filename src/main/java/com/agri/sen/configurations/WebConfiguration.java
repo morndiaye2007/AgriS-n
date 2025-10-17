@@ -1,4 +1,4 @@
-package com.webgram.stage.configurations;
+package com.agri.sen.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

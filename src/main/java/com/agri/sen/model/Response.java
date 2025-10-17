@@ -1,4 +1,4 @@
-package com.webgram.stage.model;
+package com.agri.sen.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
