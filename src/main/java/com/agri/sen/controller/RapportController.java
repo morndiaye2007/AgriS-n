@@ -35,7 +35,6 @@ public class RapportController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response<Object> updateRapport(@Parameter(name = "id", description = "the rapport id to updated") @PathVariable("id") Long id, @RequestBody RapportDTO produitDTO) {
@@ -48,7 +47,6 @@ public class RapportController {
         }
 
     }
-
     @Operation(summary = "Read the rapport", description = "This endpoint is used to read rapport, it takes input id rapport")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
@@ -71,8 +69,6 @@ public class RapportController {
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
-
-
     @Operation(summary = "delete the rapport", description = "Delete rapport, it takes input id rapport")
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
@@ -84,5 +80,4 @@ public class RapportController {
             throw new RuntimeException(e);
         }
     }
-
 }

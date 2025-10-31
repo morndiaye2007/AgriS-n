@@ -35,7 +35,6 @@ public class RecommandationController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response<Object> updateRecommandation(@Parameter(name = "id", description = "the Recommandation id to updated") @PathVariable("id") Long id, @RequestBody RecommandationDTO produitDTO) {
@@ -46,9 +45,7 @@ public class RecommandationController {
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
-
     }
-
     @Operation(summary = "Read the Recommandation", description = "This endpoint is used to read Recommandation, it takes input id Recommandation")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
@@ -61,7 +58,6 @@ public class RecommandationController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @Operation(summary = "Read all Budget", description = "It takes input param of the page and returns this list related")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/all")
@@ -71,8 +67,6 @@ public class RecommandationController {
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
-
-
     @Operation(summary = "delete the Recommandation", description = "Delete Recommandation, it takes input id Recommandation")
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
@@ -84,5 +78,4 @@ public class RecommandationController {
             throw new RuntimeException(e);
         }
     }
-
 }

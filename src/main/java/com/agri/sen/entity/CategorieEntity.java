@@ -16,10 +16,8 @@ public class CategorieEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "nom_categorie", nullable = false)
     private String nom;
-
     @Column(name = "description_categorie")
     private String description;
 }

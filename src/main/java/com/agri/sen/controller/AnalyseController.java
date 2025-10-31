@@ -35,7 +35,6 @@ public class AnalyseController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response<Object> updateAnalyse(@Parameter(name = "id", description = "the analyse id to updated") @PathVariable("id") Long id, @RequestBody AnalyseDTO analyseDTO) {
@@ -46,9 +45,7 @@ public class AnalyseController {
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
-
     }
-
     @Operation(summary = "Read the analyse", description = "This endpoint is used to read analyse, it takes input id analyse")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
@@ -84,5 +81,4 @@ public class AnalyseController {
             throw new RuntimeException(e);
         }
     }
-
 }

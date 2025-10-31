@@ -42,7 +42,6 @@ public class ProduitController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response<Object> updateProduit(@Parameter(name = "id", description = "the produit id to updated") @PathVariable("id") Long id, @RequestBody ProduitDTO produitDTO) {
@@ -55,7 +54,6 @@ public class ProduitController {
         }
 
     }
-
     @Operation(summary = "Read the produit", description = "This endpoint is used to read produit, it takes input id produit")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
@@ -68,7 +66,6 @@ public class ProduitController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @Operation(summary = "Read all Budget", description = "It takes input param of the page and returns this list related")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/all")
@@ -78,8 +75,6 @@ public class ProduitController {
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
-
-
     @Operation(summary = "delete the produit", description = "Delete produit, it takes input id produit")
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
@@ -91,5 +86,4 @@ public class ProduitController {
             throw new RuntimeException(e);
         }
     }
-
 }

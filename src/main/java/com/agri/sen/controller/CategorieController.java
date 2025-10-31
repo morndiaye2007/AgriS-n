@@ -35,7 +35,6 @@ public class CategorieController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Response<Object> updateCategorie(@Parameter(name = "id", description = "the categorie id to updated") @PathVariable("id") Long id, @RequestBody CategorieDTO categorieDTO) {
@@ -46,9 +45,7 @@ public class CategorieController {
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
-
     }
-
     @Operation(summary = "Read the categorie", description = "This endpoint is used to read categorie, it takes input id categorie")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
@@ -61,7 +58,6 @@ public class CategorieController {
             return Response.badRequest().setMessage(ex.getMessage());
         }
     }
-
     @Operation(summary = "Read all Budget", description = "It takes input param of the page and returns this list related")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/all")
@@ -71,8 +67,6 @@ public class CategorieController {
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
-
-
     @Operation(summary = "delete the categorie", description = "Delete categorie, it takes input id categorie")
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
@@ -84,5 +78,4 @@ public class CategorieController {
             throw new RuntimeException(e);
         }
     }
-
 }
