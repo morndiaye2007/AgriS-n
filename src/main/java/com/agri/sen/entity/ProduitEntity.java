@@ -1,48 +1,53 @@
 package com.agri.sen.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "produit")
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "agent")
-@Entity
+@AllArgsConstructor
 public class ProduitEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nom_produit")
+    @Column(name = "nom_produit", nullable = false)
     private String nom;
 
-    @Column(name = "nom_produit")
+    @Column(name = "description_produit")
     private String description;
 
-    @Column(name = "categorie_produit")
-    private String categorie;
-
-    @Column(name = "prix_produit")
+    @Column(name = "prix_produit", nullable = false)
     private Double prix;
 
-    @Column(name = "quantiteStock_produit")
-    private Double quantiteStock;
+    @Column(name = "stock_produit")
+    private Integer stock;
 
+    @Column(name = "image_url")
+    private String imageUrl;
 
+    @Column(name = "disponible")
+    private Boolean disponible;
 
+    @Column(name = "date_creation")
+    private LocalDateTime dateCreation;
 
+    @Column(name = "date_modification")
+    private LocalDateTime dateModification;
 
+    // Relations
+    @ManyToOne
+    @JoinColumn(name = "categorie_id")
+    private CategorieEntity categorie;
 
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "vendeur_id")
+    private UtilisateurEntity vendeur;
 }

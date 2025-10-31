@@ -22,21 +22,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("agents")
+@RequestMapping("produits")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 
 public class ProduitController {
 
-    private final ProduitService agentService;
+    private final ProduitService produitService;
 
-    @Operation(summary = "Create agent", description = "this endpoint takes input agent and saves it")
+    @Operation(summary = "Create produit", description = "this endpoint takes input produit and saves it")
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Response<Object> createProduit(@RequestBody ProduitDTO produitDTO) {
         try {
-            var dto = agentService.createProduit(produitDTO);
+            var dto = produitService.createProduit(produitDTO);
             return Response.ok().setPayload(dto).setMessage("Produit créé");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
@@ -45,25 +45,25 @@ public class ProduitController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> updateProduit(@Parameter(name = "id", description = "the agent id to updated") @PathVariable("id") Long id, @RequestBody ProduitDTO produitDTO) {
+    public Response<Object> updateProduit(@Parameter(name = "id", description = "the produit id to updated") @PathVariable("id") Long id, @RequestBody ProduitDTO produitDTO) {
         produitDTO.setId(id);
         try {
-            var dto = agentService.updateProduit(produitDTO);
-            return Response.ok().setPayload(dto).setMessage("agent modifié");
+            var dto = produitService.updateProduit(produitDTO);
+            return Response.ok().setPayload(dto).setMessage("produit modifié");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
 
     }
 
-    @Operation(summary = "Read the agent", description = "This endpoint is used to read agent, it takes input id agent")
+    @Operation(summary = "Read the produit", description = "This endpoint is used to read produit, it takes input id produit")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> getProduit(@Parameter(name = "id", description = "the type agent id to valid") @PathVariable Long id) {
+    public Response<Object> getProduit(@Parameter(name = "id", description = "the type produit id to valid") @PathVariable Long id) {
         try {
-            var dto = agentService.getProduit(id);
-            return Response.ok().setPayload(dto).setMessage("agent trouvé");
+            var dto = produitService.getProduit(id);
+            return Response.ok().setPayload(dto).setMessage("produit trouvé");
         } catch (Exception ex) {
             return Response.badRequest().setMessage(ex.getMessage());
         }
@@ -73,20 +73,20 @@ public class ProduitController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Success"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public Response<Object> getAllProduits(@RequestParam Map<String, String> searchParams, Pageable pageable) {
-        var page = agentService.getAllProduits(searchParams, pageable);
+    public Response<Object> getAllProduit(@RequestParam Map<String, String> searchParams, Pageable pageable) {
+        var page = produitService.getAllProduit(searchParams, pageable);
         Response.PageMetadata metadata = Response.PageMetadata.builder().number(page.getNumber()).totalElements(page.getTotalElements()).size(page.getSize()).totalPages(page.getTotalPages()).build();
         return Response.ok().setPayload(page.getContent()).setMetadata(metadata);
     }
 
 
-    @Operation(summary = "delete the agent", description = "Delete agent, it takes input id agent")
+    @Operation(summary = "delete the produit", description = "Delete produit, it takes input id produit")
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "No content"), @ApiResponse(responseCode = "400", description = "Request sent by the client was syntactically incorrect"), @ApiResponse(responseCode = "404", description = "Resource access does not exist"), @ApiResponse(responseCode = "500", description = "Internal server error during request processing")})
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduit(@PathVariable("id") Long id) {
         try {
-            agentService.deleteProduit(id);
+            produitService.deleteProduit(id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,7 @@
 package com.agri.sen.services.Impl;
 
 import com.agri.sen.entity.ProduitEntity;
+import com.agri.sen.entity.QProduitEntity;
 import com.agri.sen.model.ProduitDTO;
 import com.agri.sen.repository.ProduitRepository;
 import com.agri.sen.services.ProduitService;
@@ -48,27 +49,16 @@ public class ProduitServiceImpl implements ProduitService {
     // Mapping des clés de tri exposées côté client vers les propriétés JPA (y compris relations)
     private static final Map<String, String> SORT_MAPPING = Map.ofEntries(
             Map.entry("id", "id"),
-            Map.entry("nomComplet", "nomComplet"),
-            Map.entry("matricule", "matricule"),
-            Map.entry("email", "email"),
+            Map.entry("nom", "nom"),
             Map.entry("description", "description"),
-            Map.entry("age", "age"),
-            Map.entry("dateNaissance", "dateNaissance"),
-            Map.entry("heure", "heure"),
-            Map.entry("sexe", "sexe"),
-            Map.entry("telephone", "telephone"),
-            Map.entry("pays", "pays.libelle"),
-            Map.entry("paysLibelle", "pays.libelle"),
-            Map.entry("statutProduit", "statutProduit"),
-            Map.entry("typeContrat", "typeContrat"),
-            Map.entry("langue", "langue.libelle"),
-            Map.entry("langueLibelle", "langue.libelle"),
-            Map.entry("poste", "poste.intitule"),
-            Map.entry("posteIntitule", "poste.intitule"),
-            Map.entry("filiere", "filiereSuivi.libelle"),
-            Map.entry("filiereLibelle", "filiereSuivi.libelle"),
-            Map.entry("filiereCode", "filiereSuivi.code"),
-            Map.entry("notes", "notes")
+            Map.entry("prix", "prix"),
+            Map.entry("stock", "stock"),
+            Map.entry("disponible", "disponible"),
+            Map.entry("dateCreation", "dateCreation"),
+            Map.entry("dateModification", "dateModification"),
+            Map.entry("categorie", "categorie.nom"),
+            Map.entry("categorieNom", "categorie.nom"),
+            Map.entry("vendeur", "vendeur.nom")
     );
 
     @Override
@@ -106,12 +96,8 @@ public class ProduitServiceImpl implements ProduitService {
     }
 
     @Override
-    public Page<ProduitDTO> getAllProduits(Map<String, String> searchParams, Pageable pageable) {
-        var booleanBuilder = new BooleanBuilder();
-        buildSearch(searchParams, booleanBuilder);
-        Pageable effectivePageable = applySorting(pageable, searchParams);
-        return produitRepository.findAll(booleanBuilder, effectivePageable)
-                .map(produitMapper::asDto);
+    public Page<ProduitDTO> getAllProduit(Map<String, String> searchParams, Pageable pageable) {
+        return null;
     }
 
 
@@ -186,17 +172,13 @@ public class ProduitServiceImpl implements ProduitService {
             if (searchParams.containsKey("nom"))
                 booleanBuilder.and(qEntity.nom.containsIgnoreCase(searchParams.get("nom")));
 
-            if (searchParams.containsKey("categorie"))
-                booleanBuilder.and(qEntity.categorie.containsIgnoreCase(searchParams.get("categorie")));
-
-
             if (searchParams.containsKey("description"))
                 booleanBuilder.and(qEntity.description.containsIgnoreCase(searchParams.get("description")));
 
             if (searchParams.containsKey("prix")) {
                 try {
-                    Integer age = Integer.valueOf(searchParams.get("prix"));
-                    booleanBuilder.and(qEntity.prix.eq(age));
+                    Integer prix = Integer.valueOf(searchParams.get("prix"));
+                    booleanBuilder.and(qEntity.prix.eq(Double.valueOf(prix)));
                 } catch (NumberFormatException e) {
                     // Log l'erreur ou ignorer la recherche par âge si la valeur n'est pas valide
                 }

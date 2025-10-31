@@ -1,11 +1,11 @@
 server:
-  port: 2025
+  port: 2007
   servlet:
     context-path: /api-webService
 
 spring:
   datasource:
-    name: ${DB_NAME:dgpsn_db}
+    name: ${DB_NAME:agri_senegal}
     host: ${DB_HOST:127.0.0.1}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:passer}

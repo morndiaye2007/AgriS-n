@@ -1,47 +1,37 @@
 package com.agri.sen.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.agri.sen.entity.CategorieEntity;
+import com.agri.sen.entity.UtilisateurEntity;
+import lombok.Data;
 
-import com.agri.sen.entity.enums.*;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.*;
+import java.time.LocalDateTime;
 
-import java.io.Serializable;
-import java.util.Date;
-
-
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@ToString
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class ProduitDTO implements Serializable {
+public class ProduitDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-    @NotEmpty
 
+    @NotEmpty
     private String nom;
 
     private String description;
 
-    private String categorie;
-
     private Double prix;
 
-    private Double quantiteStock;
+    private Integer stock;
 
+    private String imageUrl;
 
+    private Boolean disponible;
 
+    private LocalDateTime dateCreation;
 
+    private LocalDateTime dateModification;
 
+    private Long categorieId;
+    private CategorieEntity categorie;
 
-
-
+    private Long vendeurId;
+    private UtilisateurEntity vendeur;
 }

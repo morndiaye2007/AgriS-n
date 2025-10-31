@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    name: ${DB_NAME:agri_sen}
+    name: ${DB_NAME:agri_senegal}
     host: ${DB_HOST:127.0.0.1}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:passer}
