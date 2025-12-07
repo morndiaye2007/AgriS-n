@@ -1,24 +1,23 @@
 server:
-  port: 2007
+  port: 2000
   servlet:
     context-path: /api-webService
 
 spring:
   datasource:
-    name: ${DB_NAME:agri_sen}
+    name: ${DB_NAME:communication-db}
     host: ${DB_HOST:127.0.0.1}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:passer}
-
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${spring.datasource.host}:5432/${spring.datasource.name}
+    username: ${DB_USERNAME:Tening}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${spring.datasource.host}:3306/${spring.datasource.name}?createDatabaseIfNotExist=true
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
   application:
     name: projet
   springdoc:
@@ -28,11 +27,3 @@ spring:
     swagger-ui:
       enabled: true
       path: /swagger-ui.html
-
-#      cors:
-#        allowed-origins: "http://localhost:4200,http://localhost:4500"
-#        allowed-methods: "*"
-#        allowed-headers: "*"
-#        exposed-headers: "Authorization,Link"
-#        allow-credentials: true
-#        max-age: 1800

@@ -1,1 +1,13 @@
-C:\Users\Mor Ndiaye\Documents\DGPSN\dgpsn-backend\src\main\java\com\webgram\dgpsn\WebgramDgpsnApplication.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\AgriSenApplication.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\configurations\SwaggerConfiguration.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\configurations\WebConfiguration.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\controller\ProduitController.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\entity\enums\StatutType.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\entity\ProduitEntity.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\mapper\EntityMapper.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\mapper\ProduitMapper.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\model\ProduitDTO.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\model\Response.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\repository\ProduitRepository.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\services\Impl\ProduitServiceImpl.java
+C:\Users\tenin\OneDrive\Bureau\AgricultureSn\AgriS-n\src\main\java\com\agri\sen\services\ProduitService.java
