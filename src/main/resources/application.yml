@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    name: ${DB_NAME:communication-db}
+    name: ${DB_NAME:agriculture_sn}
     host: ${DB_HOST:127.0.0.1}
     username: ${DB_USERNAME:Tening}
     password: ${DB_PASSWORD:root}
@@ -27,3 +27,28 @@ spring:
     swagger-ui:
       enabled: true
       path: /swagger-ui.html
+
+# JWT Configuration
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 86400000
+  # jwt.expiration = 24 heures en millisecondes (24 * 60 * 60 * 1000)
+  refresh:
+    expiration: 604800000
+    # jwt.refresh.expiration = 7 jours en millisecondes (7 * 24 * 60 * 60 * 1000)
+  # Pour générer votre propre clé secrète sécurisée, utilisez: openssl rand -base64 32
+
+# CORS Configuration
+cors:
+  allowed:
+    origins: http://localhost:4200
+    methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+    headers: "*"
+    credentials: true
+  max-age: 3600
+
+# OpenWeather API Configuration
+openweather:
+  api:
+    key: cb43c9891ce383d338719c3fbb3b3bb8
+    url: https://api.openweathermap.org/data/2.5/weather
